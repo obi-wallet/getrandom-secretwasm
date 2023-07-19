@@ -11,7 +11,7 @@ extern crate std;
 use std::{mem::MaybeUninit, thread_local};
 
 use js_sys::{global, Function, Uint8Array};
-use wasm_bindgen::{prelude::wasm_bindgen, JsCast, JsValue};
+// use wasm_bindgen::{prelude::wasm_bindgen, JsCast, JsValue};
 
 // Size of our temporary Uint8Array buffer used with WebCrypto methods
 // Maximum is 65536 bytes see https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues
