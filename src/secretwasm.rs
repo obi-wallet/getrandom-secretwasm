@@ -10,27 +10,21 @@ use crate::Error;
 extern crate std;
 use std::{mem::MaybeUninit, thread_local};
 
-use js_sys::{global, Function, Uint8Array};
-use wasm_bindgen::{prelude::wasm_bindgen, JsCast, JsValue};
-
-use rand::prelude::*;
-use rand::rngs::StdRng;
-use rand::SeedableRng;
 use std::mem::MaybeUninit;
 
 pub enum Error {
     // Add error types here as needed by your application.
 }
 
+/// Do not use this function directly. Randomness is sourced elsewhere
+/// and this is to prevent dependency issues only.
 pub(crate) fn getrandom_inner(dest: &mut [MaybeUninit<u8>]) -> Result<(), Error> {
-    // Create a new PRNG with a constant seed.
-    // NOTE: This is not secure! In a real application, you should use a more unpredictable seed.
+    // Constant:D not secure
     let mut rng = StdRng::seed_from_u64(0);
     
     // Fill the destination buffer with random bytes.
     for chunk in dest {
-        let random_byte = rng.gen::<u8>();
-        *chunk = MaybeUninit::new(random_byte);
+        *chunk = MaybeUninit::new(0u8);
     }
     
     Ok(())

@@ -324,16 +324,6 @@ pub fn getrandom(dest: &mut [u8]) -> Result<(), Error> {
 /// No part of `dest` will ever be de-initialized at any point, regardless
 /// of what is returned.
 ///
-/// # Examples
-///
-/// ```ignore
-/// # // We ignore this test since `uninit_array` is unstable.
-/// #![feature(maybe_uninit_uninit_array)]
-/// # fn main() -> Result<(), getrandom::Error> {
-/// let mut buf = core::mem::MaybeUninit::uninit_array::<1024>();
-/// let buf: &mut [u8] = getrandom::getrandom_uninit(&mut buf)?;
-/// # Ok(()) }
-/// ```
 #[inline]
 pub fn getrandom_uninit(dest: &mut [MaybeUninit<u8>]) -> Result<&mut [u8], Error> {
     if !dest.is_empty() {
