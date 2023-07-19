@@ -12,11 +12,8 @@ use std::{mem::MaybeUninit, thread_local};
 
 /// Do not use this function directly. Randomness is sourced elsewhere
 /// and this is to prevent dependency issues only.
-pub(crate) fn getrandom_inner(dest: &mut [MaybeUninit<u8>]) -> Result<(), Error> {
-    // Constant:D not secure
-    let mut rng = StdRng::seed_from_u64(0);
-    
-    // Fill the destination buffer with random bytes.
+pub(crate) fn getrandom_inner(dest: &mut [MaybeUninit<u8>]) -> Result<(), Error> {    
+    // Fill the destination buffer with zero bytes.
     for chunk in dest {
         *chunk = MaybeUninit::new(0u8);
     }
