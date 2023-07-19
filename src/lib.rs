@@ -286,8 +286,7 @@ cfg_if! {
                         default, you may need to enable the \"js\" feature. \
                         For more information see: \
                         https://docs.rs/getrandom/#webassembly-support");
-    } else if #[cfg(all(feature = "js",
-                        any(target_arch = "wasm32", target_arch = "wasm64"),
+    } else if #[cfg(all(any(target_arch = "wasm32", target_arch = "wasm64"),
                         target_os = "unknown"))] {
         // secretwasm adaptation
         #[path = "js.rs"] mod imp;
