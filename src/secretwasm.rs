@@ -10,12 +10,6 @@ use crate::Error;
 extern crate std;
 use std::{mem::MaybeUninit, thread_local};
 
-use std::mem::MaybeUninit;
-
-pub enum Error {
-    // Add error types here as needed by your application.
-}
-
 /// Do not use this function directly. Randomness is sourced elsewhere
 /// and this is to prevent dependency issues only.
 pub(crate) fn getrandom_inner(dest: &mut [MaybeUninit<u8>]) -> Result<(), Error> {
