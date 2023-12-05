@@ -140,7 +140,7 @@ jobs:
           # TODO: add Android tests back when the cross cuts a new release.
           # See: https://github.com/cross-rs/cross/issues/1222
           # aarch64-linux-android,
-          mips-unknown-linux-gnu,
+          powerpc-unknown-linux-gnu,
           wasm32-unknown-emscripten,
         ]
     steps:
@@ -317,6 +317,8 @@ jobs:
             features: ["rdrand"]
           - target: x86_64-unknown-l4re-uclibc
             features: ["rdrand"]
+          - target: i686-unknown-hurd-gnu
+            features: ["std"]
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@nightly # Required to build libcore
@@ -324,6 +326,17 @@ jobs:
           components: rust-src
       - uses: Swatinem/rust-cache@v2
       - run: cargo build -Z build-std=${{ contains(matrix.features, 'std') && 'std' || 'core'}} --target=${{ matrix.target }} --features="${{ join(matrix.features, ',') }}"
+
+  build-no-atomics:
+    name: No Atomics Build
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: riscv32i-unknown-none-elf
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo build --features custom --target riscv32i-unknown-none-elf
 
   clippy-fmt:
     name: Clippy + rustfmt
